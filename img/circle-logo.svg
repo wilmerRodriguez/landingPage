@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="gradient" gradientTransform="rotate(0 0.5 0.5)">
+      <stop offset="0%" stop-color="#34e3b9"></stop>
+      <stop offset="100%" stop-color="#1273d8"></stop>
+    </linearGradient>
+    <!-- Circular clip path -->
+    <clipPath id="circle-clip">
+      <circle cx="100" cy="100" r="100"/>
+    </clipPath>
+  </defs>
+
+  <!-- Circular background with gradient -->
+  <circle cx="100" cy="100" r="100" fill="url('#gradient')"/>
+
+  <!-- Logo text clipped to circle -->
+  <g clip-path="url(#circle-clip)">
+    <g fill="#0e0e0d" transform="matrix(5.316858363457115,0,0,5.316858363457115,19.903050015219875,137.80223854054287)" stroke="#1273d8" stroke-width="0.15">
+      <path d="M10.11-14.22L12.09-5.30L13.72-14.22L17.12-14.22L14.10 0L10.55 0L8.64-8.11L6.78 0L3.23 0L0.21-14.22L3.61-14.22L5.24-5.30L7.20-14.22L10.11-14.22ZM26.25 0L23.74-5.02L21.88-5.02L21.88 0L18.46 0L18.46-14.22L24.05-14.22Q26.58-14.22 28.01-13.10Q29.43-11.97 29.43-9.92L29.43-9.92Q29.43-8.44 28.83-7.46Q28.23-6.48 26.95-5.88L26.95-5.88L29.92-0.15L29.92 0L26.25 0ZM21.88-11.57L21.88-7.67L24.05-7.67Q25.03-7.67 25.52-8.18Q26.02-8.69 26.02-9.61Q26.02-10.53 25.52-11.05Q25.02-11.57 24.05-11.57L24.05-11.57L21.88-11.57Z"/>
+    </g>
+  </g>
+</svg>
