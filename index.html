@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
-<link rel="icon" type="image/png" href="/img/circle-logo.svg">
+<link rel="icon" type="image/svg+xml" href="img/circle-logo.svg">
 <style>
 /* ── RESET & TOKENS ────────────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -32,7 +32,7 @@ html{scroll-behavior:smooth}
 body{
   font-family:var(--sans);background:var(--bg);color:var(--text);
   overflow-x:hidden;line-height:1.6;
-  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;
 }
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
@@ -48,7 +48,7 @@ ul{list-style:none}
   display:flex;align-items:center;justify-content:space-between;
   height:60px;padding:0 clamp(1.25rem,5vw,4rem);
   background:rgba(8,10,15,.9);
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
   border-bottom:1px solid var(--line);
   transition:border-color .3s;
 }
@@ -116,8 +116,8 @@ ul{list-style:none}
     linear-gradient(rgba(0,229,255,.03) 1px,transparent 1px),
     linear-gradient(90deg,rgba(0,229,255,.03) 1px,transparent 1px);
   background-size:50px 50px;
-  mask-image:radial-gradient(ellipse 90% 80% at 50% 40%,black 20%,transparent 100%);
   -webkit-mask-image:radial-gradient(ellipse 90% 80% at 50% 40%,black 20%,transparent 100%);
+  mask-image:radial-gradient(ellipse 90% 80% at 50% 40%,black 20%,transparent 100%);
 }
 .hero-glow{
   position:absolute;top:-200px;right:-100px;width:600px;height:600px;
@@ -189,7 +189,7 @@ h1 .ac{
   font-family:var(--mono);font-size:.7rem;font-weight:500;
   letter-spacing:.1em;text-transform:uppercase;
   padding:.7rem 1.4rem;border-radius:4px;cursor:pointer;
-  transition:all .2s var(--ease);border:none;
+  transition:background .2s var(--ease),color .2s var(--ease),transform .2s var(--ease),box-shadow .2s var(--ease),border-color .2s var(--ease);border:none;
   -webkit-tap-highlight-color:transparent;white-space:nowrap;
 }
 .btn-p{background:var(--cyan);color:#000}
@@ -264,6 +264,10 @@ section{padding:clamp(3rem,7vw,6rem) clamp(1.25rem,5vw,4rem)}
 .sk-tk{height:2px;background:var(--line);border-radius:2px;overflow:hidden}
 .sk-fl{height:100%;background:var(--cyan);width:0;border-radius:2px;transition:width 1.4s cubic-bezier(.4,0,.2,1)}
 .langs{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.5rem}
+.skills-col{margin-top:.35rem}
+.sl-mt{margin-top:1.6rem}
+.about-cv{margin-top:1.6rem;display:inline-flex}
+.portfolio-desc{color:var(--t2);font-size:.92rem;max-width:480px}
 .lp{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:.26rem .75rem;border:1px solid var(--line);border-radius:2px;color:var(--t3)}
 .lp.hi{border-color:rgba(0,229,255,.3);color:var(--cdim)}
 
@@ -301,6 +305,7 @@ section{padding:clamp(3rem,7vw,6rem) clamp(1.25rem,5vw,4rem)}
 .cico{width:34px;height:34px;flex-shrink:0;border-radius:4px;background:var(--bg2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:.8rem}
 .clb{font-family:var(--mono);font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:.1rem}
 .cvl{font-size:.84rem;color:var(--t2)}
+.cvl a{color:var(--cyan)}
 .cf{display:flex;flex-direction:column;gap:.85rem}
 .cf-row{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
 .fg{display:flex;flex-direction:column;gap:.28rem}
@@ -311,7 +316,7 @@ section{padding:clamp(3rem,7vw,6rem) clamp(1.25rem,5vw,4rem)}
   /* prevent iOS zoom */
   font-size:max(.88rem,16px);
   outline:none;transition:border-color .2s,box-shadow .2s;
-  -webkit-appearance:none;
+  -webkit-appearance:none;appearance:none;
 }
 .fg input::placeholder,.fg textarea::placeholder{color:var(--t3)}
 .fg input:focus,.fg textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(0,229,255,.08)}
@@ -444,12 +449,14 @@ footer{background:var(--bg1);border-top:1px solid var(--line);padding:1.4rem cla
   </button>
 </nav>
 
-<div id="mob" role="navigation" aria-label="Mobile navigation">
+<nav id="mob" aria-label="Mobile navigation">
   <a href="#about"      onclick="cmob()">About</a>
   <a href="#experience" onclick="cmob()">Experience</a>
   <a href="#portfolio"  onclick="cmob()">Work</a>
   <a href="#contact"    onclick="cmob()">Contact</a>
-</div>
+</nav>
+
+<main>
 
 <!-- ── HERO ────────────────────────────────────────────────── -->
 <section id="hero">
@@ -466,17 +473,17 @@ footer{background:var(--bg1);border-top:1px solid var(--line);padding:1.4rem cla
         <div class="avatar-ring">
           <div class="avatar-inner">
             <img
+              id="avatar-img"
               src="https://wilmerrodriguez.github.io/portfolio2.0/img/PortfolioPic.jpg"
               alt=""
               width="150" height="150"
-              onerror="this.parentElement.parentElement.parentElement.style.display='none'"
             />
           </div>
         </div>
         <div class="avatar-badge">Disponible — Laval, FR</div>
       </div>
 
-      <div class="eyebrow"><div class="dot"></div><span class="desktop-only-text">Disponible — Laval, France</span><span class="mobile-hide">Disponible — Laval, France</span></div>
+      <div class="eyebrow"><div class="dot"></div><span>Disponible — Laval, France</span></div>
       <h1>
         Front&nbsp;End<br/>
         <span class="ac">Developer</span>
@@ -492,12 +499,12 @@ footer{background:var(--bg1);border-top:1px solid var(--line);padding:1.4rem cla
     <!-- DESKTOP PHOTO (hidden ≤900px) -->
     <div class="photo-wrap">
       <img
+        id="hero-img"
         src="https://wilmerrodriguez.github.io/portfolio2.0/img/PortfolioPic.jpg"
         alt="Wilmer Rodriguez — Développeur Web Front End"
         class="hero-img"
         width="360" height="360"
         loading="eager"
-        onerror="this.parentElement.style.display='none'"
       />
       <div class="photo-badge">
         <strong>10+</strong>
@@ -507,6 +514,20 @@ footer{background:var(--bg1);border-top:1px solid var(--line);padding:1.4rem cla
 
   </div>
 </section>
+
+<!-- ── MARQUEE ───────────────────────────────────────────────── -->
+<div class="mqw" aria-hidden="true">
+  <div class="mqt">
+    <span class="mi">HTML5</span><span class="mi">CSS3</span><span class="mi">JavaScript</span>
+    <span class="mi">React JS</span><span class="mi">Node JS</span><span class="mi">GitHub</span>
+    <span class="mi">Responsive Design</span><span class="mi">UI / UX</span>
+    <span class="mi">REST API</span><span class="mi">Redux</span>
+    <span class="mi">HTML5</span><span class="mi">CSS3</span><span class="mi">JavaScript</span>
+    <span class="mi">React JS</span><span class="mi">Node JS</span><span class="mi">GitHub</span>
+    <span class="mi">Responsive Design</span><span class="mi">UI / UX</span>
+    <span class="mi">REST API</span><span class="mi">Redux</span>
+  </div>
+</div>
 
 <!-- ── ABOUT ────────────────────────────────────────────────── -->
 <section id="about">
@@ -522,12 +543,12 @@ footer{background:var(--bg1);border-top:1px solid var(--line);padding:1.4rem cla
         <div class="sg"><div class="n">2+</div><div class="l">Projets React</div></div>
         <div class="sg"><div class="n">3+</div><div class="l">Projets à venir</div></div>
       </div>
-      <a href="https://wilmerrodriguez.github.io/portfolio2.0/Wilmer_RodriguezCV.pdf" target="_blank" rel="noopener" class="btn btn-g" style="margin-top:1.6rem;display:inline-flex">↓ Télécharger CV</a>
+      <a href="https://wilmerrodriguez.github.io/portfolio2.0/Wilmer_RodriguezCV.pdf" target="_blank" rel="noopener" class="btn btn-g about-cv">↓ Télécharger CV</a>
     </div>
 
     <div class="rev d2">
       <div class="sl">Compétences</div>
-      <div class="skills-col" style="margin-top:.35rem">
+      <div class="skills-col">
         <div class="sk"><div class="sk-hd"><span class="sk-nm">HTML5</span><span class="sk-pc">90%</span></div><div class="sk-tk"><div class="sk-fl" data-w="90"></div></div></div>
         <div class="sk"><div class="sk-hd"><span class="sk-nm">CSS3</span><span class="sk-pc">70%</span></div><div class="sk-tk"><div class="sk-fl" data-w="70"></div></div></div>
         <div class="sk"><div class="sk-hd"><span class="sk-nm">JavaScript</span><span class="sk-pc">75%</span></div><div class="sk-tk"><div class="sk-fl" data-w="75"></div></div></div>
@@ -535,7 +556,7 @@ footer{background:var(--bg1);border-top:1px solid var(--line);padding:1.4rem cla
         <div class="sk"><div class="sk-hd"><span class="sk-nm">Node JS</span><span class="sk-pc">60%</span></div><div class="sk-tk"><div class="sk-fl" data-w="60"></div></div></div>
         <div class="sk"><div class="sk-hd"><span class="sk-nm">GitHub</span><span class="sk-pc">60%</span></div><div class="sk-tk"><div class="sk-fl" data-w="60"></div></div></div>
       </div>
-      <div class="sl" style="margin-top:1.6rem">Langues</div>
+      <div class="sl sl-mt">Langues</div>
       <div class="langs">
         <span class="lp hi">English</span>
         <span class="lp hi">Español</span>
@@ -612,37 +633,37 @@ footer{background:var(--bg1);border-top:1px solid var(--line);padding:1.4rem cla
   <div class="container">
     <div class="sl rev">Réalisations</div>
     <h2 class="st rev">Mon travail</h2>
-    <p class="rev" style="color:var(--t2);font-size:.92rem;max-width:480px">Projets réalisés pour développer et consolider mes compétences en développement Front End.</p>
+    <p class="rev portfolio-desc">Projets réalisés pour développer et consolider mes compétences en développement Front End.</p>
     <div class="pg rev d1">
       <div class="pc">
         <img src="https://wilmerrodriguez.github.io/portfolio2.0/img/port1.jpg" alt="Projet 1" loading="lazy" width="400" height="300"/>
         <div class="po"><div class="pn">// 01</div><div class="pt">Projet Web</div><div class="ptg">HTML · CSS · JavaScript</div></div>
-        <a href="#portfolio" class="plnk" aria-label="Voir projet 1">↗</a>
+        <a href="#" class="plnk" aria-label="Voir projet 1">↗</a>
       </div>
       <div class="pc">
         <img src="https://wilmerrodriguez.github.io/portfolio2.0/img/port2.jpg" alt="Projet 2" loading="lazy" width="400" height="300"/>
         <div class="po"><div class="pn">// 02</div><div class="pt">Projet UI</div><div class="ptg">HTML · CSS · JavaScript</div></div>
-        <a href="#portfolio" class="plnk" aria-label="Voir projet 2">↗</a>
+        <a href="#" class="plnk" aria-label="Voir projet 2">↗</a>
       </div>
       <div class="pc">
         <img src="https://wilmerrodriguez.github.io/portfolio2.0/img/port3.jpg" alt="Projet 3" loading="lazy" width="400" height="300"/>
         <div class="po"><div class="pn">// 03</div><div class="pt">Application React</div><div class="ptg">React JS · Firebase</div></div>
-        <a href="#portfolio" class="plnk" aria-label="Voir projet 3">↗</a>
+        <a href="#" class="plnk" aria-label="Voir projet 3">↗</a>
       </div>
       <div class="pc">
         <img src="https://wilmerrodriguez.github.io/portfolio2.0/img/port4.jpg" alt="Projet 4" loading="lazy" width="400" height="300"/>
         <div class="po"><div class="pn">// 04</div><div class="pt">App React / Redux</div><div class="ptg">React JS · Redux</div></div>
-        <a href="#portfolio" class="plnk" aria-label="Voir projet 4">↗</a>
+        <a href="#" class="plnk" aria-label="Voir projet 4">↗</a>
       </div>
       <div class="pc">
         <img src="https://wilmerrodriguez.github.io/portfolio2.0/img/port5.jpg" alt="Projet 5" loading="lazy" width="400" height="300"/>
         <div class="po"><div class="pn">// 05</div><div class="pt">Site Responsive</div><div class="ptg">HTML · CSS</div></div>
-        <a href="#portfolio" class="plnk" aria-label="Voir projet 5">↗</a>
+        <a href="#" class="plnk" aria-label="Voir projet 5">↗</a>
       </div>
       <div class="pc">
         <img src="https://wilmerrodriguez.github.io/portfolio2.0/img/port7.jpg" alt="Projet 6" loading="lazy" width="400" height="300"/>
         <div class="po"><div class="pn">// 06</div><div class="pt">Landing Page</div><div class="ptg">HTML · CSS · JS</div></div>
-        <a href="#portfolio" class="plnk" aria-label="Voir projet 6">↗</a>
+        <a href="#" class="plnk" aria-label="Voir projet 6">↗</a>
       </div>
     </div>
   </div>
@@ -658,8 +679,8 @@ footer{background:var(--bg1);border-top:1px solid var(--line);padding:1.4rem cla
         <h3>Envoyez-moi un message</h3>
         <p>Vous avez un projet, une idée ou une proposition ? Je suis disponible pour de nouvelles collaborations et réponds généralement sous 24h.</p>
         <div class="cdet"><div class="cico" aria-hidden="true">📍</div><div><div class="clb">Localisation</div><div class="cvl">France</div></div></div>
-        <div class="cdet"><div class="cico" aria-hidden="true">✉️</div><div><div class="clb">Email</div><div class="cvl" id="ceml">votre.email@gmail.com</div></div></div>
-        <div class="cdet"><div class="cico" aria-hidden="true">💼</div><div><div class="clb">GitHub</div><div class="cvl" style="color:var(--cyan)">wilmerrodriguez</div></div></div>
+        <div class="cdet"><div class="cico" aria-hidden="true">✉️</div><div><div class="clb">Email</div><div class="cvl" id="ceml"><a href="mailto:rodriguez.wilmer64@gmail.com">rodriguez.wilmer64@gmail.com</a></div></div></div>
+        <div class="cdet"><div class="cico" aria-hidden="true">💼</div><div><div class="clb">GitHub</div><div class="cvl"><a href="https://github.com/wilmerRodriguez" target="_blank" rel="noopener">wilmerRodriguez</a></div></div></div>
       </div>
       <div class="rev d1">
         <div class="cf">
@@ -694,10 +715,12 @@ footer{background:var(--bg1);border-top:1px solid var(--line);padding:1.4rem cla
   </div>
 </section>
 
+</main>
+
 <!-- ── FOOTER ────────────────────────────────────────────────── -->
 <footer>
   <div class="fl">WILMER_RODRIGUEZ</div>
-  <div class="fr">© 2025 · Front End Developer · France</div>
+  <div class="fr">© 2026 · Front End Developer · France</div>
 </footer>
 
 <div id="toast" role="status" aria-live="polite"></div>
@@ -705,6 +728,10 @@ footer{background:var(--bg1);border-top:1px solid var(--line);padding:1.4rem cla
 <!-- ── SCRIPTS ───────────────────────────────────────────────── -->
 <script>
 const W3F_KEY = '3c082592-2570-4a2c-9dc6-3eb6eff07904';
+
+/* Image error fallbacks */
+document.getElementById('avatar-img').onerror=function(){this.closest('.mobile-avatar').style.display='none';};
+document.getElementById('hero-img').onerror=function(){this.closest('.photo-wrap').style.display='none';};
 
 /* Cursor glow — only on pointer devices */
 const cg = document.getElementById('cg');
@@ -784,9 +811,9 @@ function vld(){
 function showToast(msg,type){
   const t=document.getElementById('toast');
   t.textContent=msg;
-  t.className='toast '+(type==='ok'?'s':'e');
+  t.className=type==='ok'?'s':'e';
   clearTimeout(t._t);
-  t._t=setTimeout(()=>t.className='toast',5000);
+  t._t=setTimeout(()=>t.className='',5000);
 }
 
 async function sendMsg(){
