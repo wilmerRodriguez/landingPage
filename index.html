@@ -8,8 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
-<link rel="icon" type="image/svg" href="img/circle-logo.svg">
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<link rel="icon" type="image/png" href="/img/circle-logo.svg">
 <style>
 /* ── RESET & TOKENS ────────────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -705,19 +704,7 @@ footer{background:var(--bg1);border-top:1px solid var(--line);padding:1.4rem cla
 
 <!-- ── SCRIPTS ───────────────────────────────────────────────── -->
 <script>
-/* ── EmailJS ──────────────────────────────────────────────────
-   1. Free account → https://www.emailjs.com
-   2. Add Email Service (Gmail) → note the Service ID
-   3. Create Email Template with: {{from_name}} {{from_email}} {{subject}} {{message}}
-   4. Account → API Keys → copy Public Key
-   5. Paste the three values below:
-*/
-const EK = 'YOUR_PUBLIC_KEY';
-const ES = 'YOUR_SERVICE_ID';
-const ET = 'YOUR_TEMPLATE_ID';
-/* ──────────────────────────────────────────────────────────── */
-
-emailjs.init(EK);
+const W3F_KEY = '3c082592-2570-4a2c-9dc6-3eb6eff07904';
 
 /* Cursor glow — only on pointer devices */
 const cg = document.getElementById('cg');
@@ -804,18 +791,27 @@ function showToast(msg,type){
 
 async function sendMsg(){
   if(!vld()) return;
-  if(EK==='YOUR_PUBLIC_KEY'){showToast('⚙ Configurez EmailJS dans le code (voir commentaires).','err');return;}
   const btn=document.getElementById('sbtn'),lbl=document.getElementById('sbl');
   btn.disabled=true;lbl.textContent='Envoi…';
   try{
-    await emailjs.send(ES,ET,{
-      from_name: document.getElementById('cn').value.trim(),
-      from_email:document.getElementById('ce').value.trim(),
-      subject:   document.getElementById('cs').value.trim(),
-      message:   document.getElementById('cm2').value.trim(),
+    const res=await fetch('https://api.web3forms.com/submit',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({
+        access_key: W3F_KEY,
+        name:    document.getElementById('cn').value.trim(),
+        email:   document.getElementById('ce').value.trim(),
+        subject: document.getElementById('cs').value.trim(),
+        message: document.getElementById('cm2').value.trim(),
+      }),
     });
-    showToast('✓ Message envoyé ! Je vous répondrai très bientôt.','ok');
-    ['cn','ce','cs','cm2'].forEach(id=>document.getElementById(id).value='');
+    const data=await res.json();
+    if(data.success){
+      showToast('✓ Message envoyé ! Je vous répondrai très bientôt.','ok');
+      ['cn','ce','cs','cm2'].forEach(id=>document.getElementById(id).value='');
+    }else{
+      throw new Error(data.message||'Erreur inconnue');
+    }
   }catch(err){
     console.error(err);
     showToast('✕ Erreur d\'envoi. Réessayez ou écrivez directement par email.','err');
